@@ -23,16 +23,13 @@ def error(err_name, err):
 
     logger.warning('error "%s" caused error "%s"', err_name, err)
 
-
 def main():
-     print("cau")
-
-     def dalisana(x=10,y=0):
-      try:
-         result = x//y
-      except ZeroDivisionError as err:
-         error("Sorry", err)
-
-         dalisana()
-if __name__ == "__main__":
+    print("Cau")
+    def dalisana():
+     try:
+        a = 10/0
+     except ZeroDivisionError as err:
+         error('Handling run-time error:', err)
+    dalisana()
+if __name__ == '__main__':
     main()
