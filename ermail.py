@@ -23,15 +23,12 @@ def error(err_name, err):
 
     logger.warning('error "%s" caused error "%s"', err_name, err)
 
-
-    dalisana()
-    def dalisana():
-        print(10/0)
-        try:
-           dalisana()
-        except ZeroDivisionError as err:
-           error('Handling run-time error:', err)
 def main():
- print("Čau")
-if __name__== '__main__':
- main()
+    print(10/0)
+def dalisana():
+    print("cau")
+    try:
+       main()
+    except ZeroDivisionError as err:
+       error('Handling run-time error:', err)
+dalisana()
