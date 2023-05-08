@@ -1,34 +1,27 @@
-import logging
-import logging.handlers
+import configparser
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO, filename='log.log')
+config = configparser.ConfigParser()
 
-logger = logging.getLogger(__name__)
+config.add_section('Debug')
+config.add_section('Log')
+config.add_section('Gmail')
 
-smtp_handler = logging.handlers.SMTPHandler(mailhost=('smtp.gmail.com', 587),
-                                            fromaddr='pauls.konov@gmail.com',
-                                            toaddrs='pauls.konov@gmail.com',
-                                            subject='Error',
-                                            credentials=(
-                                                'pauls.konov@gmail.com',
-                                                'vpbemywqlypkzdmz'),
-                                            secure=())
-logger.addHandler(smtp_handler)
+config.set('Debug', 'debug_mode', 'True')
+config.set('Log', 'log_file_path', '/var/log/myapp.log')
+config.set('Gmail', 'username', 'pauls.konov@gmail.com')
+config.set('Gmail', 'password', '')
 
+with open('myapp.conf', 'w') as f:
+ config.write(f)
 
-def error(err_name, err):
-    """Log Errors"""
+config.read('myaap.conf')
 
-    logger.warning('error "%s" caused error "%s"', err_name, err)
+debug_mode = config.getboolean('Debug', 'debug_mode')
+log_file_path = config.get('Log', 'log_file_path')
+username = config.get('Gmail', 'username')
+password = config.get('Gmail', 'password')
 
-def main():
-    print(10/0)
-def dalisana():
-    print("cau")
-    try:
-       main()
-    except ZeroDivisionError as err:
-       error('Handling run-time error:', err)
-dalisana()
+print(debug_mode)
+print(log_file_path)
+print(username)
+print(password)
